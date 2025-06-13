@@ -1,19 +1,14 @@
 import cv2 as cv
-import numpy as np
-import matplotlib.pyplot as plt
 
-# img=plt.imread('badminton.jpg') #plt.imread() is used to read the image in matplotlib library
-# plt.imshow(img)
-# plt.show()
+Orig_img=cv.imread('messi.jpg')
 
-
-img=cv.imread('badminton.jpg')
-
-cv.putText(img,'P V Sindhu',(250,100),cv.FONT_HERSHEY_DUPLEX,1,(0,255,255),2) #(250,100) is the starting point of the text
-cv.imshow('Text',img)
-
-
-
+cv.imshow('image',Orig_img)
+flipped_img=cv.flip(Orig_img,1) #1 is for horizontal flip
+flipped_img2=cv.flip(Orig_img,0) #0 is for vertical flip
+flipped_img3=cv.flip(Orig_img,-1) #-1 is for both horizontal and vertical flip
+cv.imshow('flipped_img',flipped_img)
+cv.imshow('flipped_img2',flipped_img2)
+cv.imshow('flipped_img3',flipped_img3)
 cv.waitKey(0)
 cv.destroyAllWindows()
 
