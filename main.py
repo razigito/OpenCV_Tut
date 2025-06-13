@@ -1,50 +1,53 @@
 import cv2 as cv
 import numpy as np
 
-#RESİZE AN IMAGE
+img3 = cv.imread('cat.jpg')
 
-img2 = cv.imread('zoo.jpg') 
-cv.imshow('original', img2)
-print(img2.shape) #(height, width, channel) tuple
-
-#Downscale with aspect ratio
-
-scale_percent = 50 #%50 of the original size
-width = int(img2.shape[1] * scale_percent / 100) 
-height = int(img2.shape[0] * scale_percent / 100)
-dim = (width, height) # dimension ple
-resized1 = cv.resize(img2, dim, interpolation = cv.INTER_AREA)
-cv.imshow('resized1', resized1) #resized image
-
-print(resized1.shape) 
-
-# #Upscale with aspect ratio
-# scale_percent = 150    #%150 of the original size
-# width = int(img2.shape[1] * scale_percent / 100) 
-# height = int(img2.shape[0] * scale_percent / 100)
-# dim = (width, height) 
-# resized2 = cv.resize(img2, dim, interpolation = cv.INTER_AREA)
-# cv.imshow('resized2', resized2) #resized image
-
-# print(resized2.shape)
+cv.imshow('original', img3)
 
 
-# #change width only
-# width = int(img2.shape[1])
-# height = 150 
-# dim = (width, height) 
-# resized3 = cv.resize(img2, dim, interpolation = cv.INTER_AREA)
-# cv.imshow('resized3', resized3) #resized image
+# #ROTATE 90 DEGREES clockwise
+# image_rotate_90 = cv.rotate(img3, cv.ROTATE_90_CLOCKWISE)
+# cv.imshow('rotate 90', image_rotate_90)
 
-# print(resized3.shape)
+# #ROTATE 90 DEGREES counterclockwise
+# image_rotate_90 = cv.rotate(img3, cv.ROTATE_90_COUNTERCLOCKWISE)
+# cv.imshow('rotate counterclockwise', image_rotate_90)
 
-# #custom size
-# width = 300
-# height = 300
-# dim = (width, height)
-# resized4 = cv.resize(img2, dim, interpolation = cv.INTER_AREA)
-# cv.imshow('resized4', resized4) #resized image
+# #ROTATE 360 DEGREES
+# image_rotate_360 = cv.rotate(img3, cv.ROTATE_180)
+# cv.imshow('rotate 360', image_rotate_360)
+
+
+#Rotattion matrix 2d, rotate from center of the image
+rows, cols, channels = img3.shape
+center = (cols/2, rows/2)
+print(center)
+M = cv.getRotationMatrix2D(center, 45, 1)
+image_rotate = cv.warpAffine(img3, M, (cols, rows))
+cv.imshow('rotate 45', image_rotate)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 cv.waitKey(0)
 cv.destroyAllWindows()
+
+
+
+
+
+
+
