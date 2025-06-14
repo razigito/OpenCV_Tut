@@ -1,27 +1,30 @@
-import cv2 as cv  # Import OpenCV and use alias 'cv'
+import cv2 as cv  
+cap = cv.VideoCapture(0) #capture the video from the webcam,
+                        #you can change the 0 to the video file name
+                        #to capture the video from the video file
 
-# Open the default webcam (0 is usually the built-in webcam)
-cap = cv.VideoCapture(0)
-
-# Loop to continuously capture frames from the webcam
 while True:
-    # Read a single frame from the webcam
+    
     ret, frame = cap.read()
     
-    # If frame is not read correctly, print an error and exit the loop
+    
     if not ret:
         print("Error: Could not read frame")
         break
+    gray_frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY) #convert the frame to gray
+    hsv_frame = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
+    cv.putText(frame, 'Razi', (50, 100), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 250), 3)
+    cv.imshow('original', frame)    #show the original frame
+    cv.imshow('gray',gray_frame)    #show the gray frame
+    cv.imshow('hsv', hsv_frame)
 
-    # Display the captured frame in a window titled 'video'
-    cv.imshow('video', frame)
-
-    # Wait for 1 ms and check if 'q' key is pressed to exit the loop
+    
+  
     if cv.waitKey(1) == ord('q'):
         break
-
+# Release the webcam resource
+cap.release()
 # Close all OpenCV windows
 cv.destroyAllWindows()
 
-# Release the webcam resource
-cap.release()
+
