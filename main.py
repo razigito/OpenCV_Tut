@@ -1,17 +1,27 @@
-import cv2 as cv
+import cv2 as cv  # Import OpenCV and use alias 'cv'
 
-Orig_img=cv.imread('messi.jpg')
+# Open the default webcam (0 is usually the built-in webcam)
+cap = cv.VideoCapture(0)
 
-cv.imshow('image',Orig_img)
-flipped_img=cv.flip(Orig_img,1) #1 is for horizontal flip
-flipped_img2=cv.flip(Orig_img,0) #0 is for vertical flip
-flipped_img3=cv.flip(Orig_img,-1) #-1 is for both horizontal and vertical flip
-cv.imshow('flipped_img',flipped_img)
-cv.imshow('flipped_img2',flipped_img2)
-cv.imshow('flipped_img3',flipped_img3)
-cv.waitKey(0)
+# Loop to continuously capture frames from the webcam
+while True:
+    # Read a single frame from the webcam
+    ret, frame = cap.read()
+    
+    # If frame is not read correctly, print an error and exit the loop
+    if not ret:
+        print("Error: Could not read frame")
+        break
+
+    # Display the captured frame in a window titled 'video'
+    cv.imshow('video', frame)
+
+    # Wait for 1 ms and check if 'q' key is pressed to exit the loop
+    if cv.waitKey(1) == ord('q'):
+        break
+
+# Close all OpenCV windows
 cv.destroyAllWindows()
 
-
-
-
+# Release the webcam resource
+cap.release()
